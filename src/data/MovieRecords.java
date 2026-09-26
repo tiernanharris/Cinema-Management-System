@@ -4,12 +4,16 @@ import models.Booking;
 import models.Movie;
 import models.Screen;
 import models.Showings;
+
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class  MovieRecords {
 
+    private List<Showings> showings = new ArrayList<>();
     private List<Movie> movies = new ArrayList<>();
     private List<Screen> screens = new ArrayList<>();
     private List<Booking> bookings = new ArrayList<>();
@@ -36,6 +40,8 @@ public class  MovieRecords {
         Movie m = getMovieById(id);
         if(m != null){
             movies.remove(m);
+            System.out.println( m.getTitle() + " has been removed.");
+
         }
     }
 
@@ -67,11 +73,41 @@ public class  MovieRecords {
     }
 
     public void addScreen(Screen screen){
+
+        if (checkScreenNumber(screen.getNumber())){
+            System.out.println("Error: Screen " + screen.getNumber() + " Id already exists.");
+            return;
+        }
         screens.add(screen);
+        System.out.println("Movie " + '"' + screen.getNumber() + '"' +" has been removed!");
+    }
+    public Screen getScreenNumber(int number){
+        for(Screen s : screens){
+            if (s.getNumber() == number){
+                return s;
+            }
+        }
+        return null;
     }
 
-    public void removeScreen(Screen screen){
-        screens.remove(screen);
+    public boolean checkScreenNumber(int number){
+        for (Screen s : screens){
+            if (s.getNumber() == number){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void removeScreen(int number){
+        Screen screenToRemove = getScreenNumber(number);
+
+        if(screenToRemove == null){
+            System.out.println("Screen " + number + " was not found.");
+            return;
+        }
+        screens.remove(screenToRemove);
+        System.out.println("Screen number: " + number + " removed!");
     }
 
     public List<Booking> getBookingForMovie(Movie movie){
@@ -86,6 +122,25 @@ public class  MovieRecords {
         return result;
     }
 
+    public Showings getShowing(Movie movie, Screen screen, LocalDateTime time) {
+        for (Showings s : showings) {
+            if (s.getMovie().equals(movie) &&
+                    s.getScreen().equals(screen) &&
+                    s.getTime().equals(time)) {
+                return s;
+            }
+        }
+        return null;
+    }
+
+
+    public void addShowing(Movie movie, LocalDateTime time, Screen screen) {
+
+        Showings showing = new Showings(movie, time, screen);
+        showings.add(showing);
+    }
+
+
     public List<Booking> getBookingsForShowings(Showings showing){
      List<Booking> result = new ArrayList<>();
 
@@ -97,6 +152,8 @@ public class  MovieRecords {
 
         return result;
     }
+
+
 }
 
 

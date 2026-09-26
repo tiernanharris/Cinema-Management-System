@@ -12,7 +12,7 @@ public class Showings {
     public Showings(Movie movie, LocalDateTime time, Screen screen) {
         this.movie = movie;
         this.time = time;
-
+        this.screen = screen;
         int rows = screen.getRows();
         int cols = screen.getCols();
 
@@ -25,6 +25,22 @@ public class Showings {
         }
 
     }
+    public Movie getMovie(){
+        return movie;
+    }
+
+    public LocalDateTime getTime(){
+        return time;
+    }
+
+    public Screen getScreen(){
+        return screen;
+    }
+
+    public Seats[][] getSeats(){
+        return seats;
+    }
+
 
 
 }
