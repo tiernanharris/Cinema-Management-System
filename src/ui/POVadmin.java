@@ -2,8 +2,6 @@ package ui;
 import models.Movie;
 import data.MovieRecords;
 import models.Screen;
-
-import javax.swing.plaf.synth.SynthTextAreaUI;
 import java.util.Scanner;
 
 public class POVadmin {
@@ -16,7 +14,6 @@ public class POVadmin {
 
     }
         public void start() {
-            Scanner sc = new Scanner(System.in);
 
             while (true) {
                 System.out.println("=== Admin Menu ===");
@@ -44,28 +41,40 @@ public class POVadmin {
             }
         }
 
-    private void addMovies(){
+    private void addMovies() {
         System.out.println("\n ==== Add Movie Menu ===");
 
         System.out.println("Enter the Movie ID: ");
         String id = sc.nextLine();
 
+
         System.out.println("Enter the movie title: ");
         String title = sc.nextLine();
 
-        System.out.print("Enter duration: ");
-        int durationMinutes = sc.nextInt();
+        int durationMinutes;
+
+        while (true) {
+            System.out.print("Enter duration: ");
+            if (sc.hasNextInt()) {
+                durationMinutes = sc.nextInt();
+                break;
+
+            } else {
+                System.out.println("Error: Please enter the length of the movie in minutes.");
+                sc.nextLine(); //*
+            }
+        }
 
         System.out.println("Enter description: ");
         String description = sc.nextLine();
 
         System.out.println("Enter rating: ");
-        String rating = sc.nextLine();
-
+        int rating = sc.nextInt();
+        sc.nextLine();
 
         Movie addMovie = new Movie(id, title, durationMinutes, description, rating);
         records.addMovies(addMovie);
-        System.out.println("Movie added!");
+
     }
 
     private void removeMovies(){
@@ -73,30 +82,23 @@ public class POVadmin {
         System.out.println("\n ==== Remove Movie Menu ===");
 
         System.out.println("Enter the Movie ID: ");
+
         String id = sc.nextLine();
 
-        Movie movieToRemove = null;
-        for(Movie m : records.getMovies()){
-            if(m.getId().equals(id)){
-                movieToRemove = m;
-                break;
-            }
-        }
-
-        if(movieToRemove == null){
-            System.out.println("Movie not found.");
+        Movie movie = records.getMovieById(id);
+        if (movie == null){
+            System.out.println("Movie not found");
             return;
         }
 
-        records.removeMovies(movieToRemove);
-        System.out.println("Movie " + '"' + movieToRemove.getTitle() + '"' +" removed!");
+        records.removeMoviesById(id);
+        System.out.println("Movie " + '"' + movie.getTitle() + '"' +" has been removed!");
     }
 
     public void addShowing(){
         System.out.println("=== Add Showing Menu ===");
 
-        System.out.println("Enter the Screen Number:");
-        int number = sc.nextInt();
+
 
     }
 
@@ -141,9 +143,6 @@ public class POVadmin {
         records.removeScreen(screenToRemove);
         System.out.println("Screen number: " + number + " removed!");
     }
-
-
-
 
 }
 

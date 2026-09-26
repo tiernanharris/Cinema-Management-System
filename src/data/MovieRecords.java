@@ -12,16 +12,20 @@ public class  MovieRecords {
 
     private List<Movie> movies = new ArrayList<>();
     private List<Screen> screens = new ArrayList<>();
-    private List<Showings> showtimes = new ArrayList<>();
     private List<Booking> bookings = new ArrayList<>();
 
     public void addMovies(Movie movie){
+        if (checkIds(movie.getId())){
+            System.out.println("Error: Movie Id already exists.");
+        return;
+       }
         movies.add(movie);
+        System.out.println("Movie " + '"' + movie.getTitle() + '"' + " has been added!");
     }
 
     public Movie getMovieById(String id){
         for(Movie m : movies){
-            if (m.getId().equals(id)) {
+            if (m.getId().equalsIgnoreCase(id)) {
                 return m;
             }
         }
@@ -35,21 +39,28 @@ public class  MovieRecords {
         }
     }
 
-    public void removeMovies(Movie movie){
+  /*  public void removeMovies(Movie movie){
         movies.remove(movie);
+    }*/
+    public boolean checkIds(String id){
+       for (Movie m : movies){
+           if (m.getId().equalsIgnoreCase(id)){
+               return true;
+           }
+       }
+       return false;
     }
-
     public List<Movie> getMovies(){
         return movies;
     }
 
-    public Movie getMovieByTitle(String title){
+  /*  public Movie getMovieByTitle(String title){
         for(Movie m : movies){
             if(m.getTitle().equalsIgnoreCase(title))
                 return m;
         }
         return null;
-    }
+    }*/
 
     public List<Screen> getScreens(){
         return screens;

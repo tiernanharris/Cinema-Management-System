@@ -1,5 +1,5 @@
 package services;
-
+import models.Booking;
 import data.MovieRecords;
 import models.Seats;
 import models.Showings;
