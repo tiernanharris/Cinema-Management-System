@@ -1,3 +1,4 @@
+# Cinema-Management-System
 This is a small cinema booking system that allows users to browse movies, view available showtimes, select seats, and create bookings. Users can also view existing bookings or cancel them. The program stores all booking data in memory while running and provides a simple console menu for navigation.
 
 This project was made by utilising Java classes, ArrayLists, basic validation, and a clean separation between models, services, and the main application layer.
