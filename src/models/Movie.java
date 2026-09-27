@@ -8,7 +8,7 @@ public class Movie {
     private String description;
     private int rating;
 
-    public Movie(String id, String title, int durationMinutes, String description, int rating){
+    public Movie(String id, String title, int durationMinutes, String description, int rating) {
         this.id = id;
         this.title = title;
         this.durationMinutes = durationMinutes;
@@ -16,9 +16,11 @@ public class Movie {
         this.rating = rating;
 
     }
-    public String getId(){
+
+    public String getId() {
         return id;
     }
+
     public String getTitle() {
         return title;
     }
@@ -35,7 +37,7 @@ public class Movie {
         return rating;
     }
 
-    public String getMovieDetails(){
-        return title + " (" + rating + "/10 , " + durationMinutes + ")" + description;
+    public String getMovieDetails() {
+        return title + " (" + rating + "/10 , " + durationMinutes + " mins) \n" + description;
     }
 }

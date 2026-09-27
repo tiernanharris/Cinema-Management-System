@@ -14,6 +14,10 @@ public class Seats {
 
     }
 
+    public void book() {
+        booked = true;
+    }
+
     public boolean isBooked(){
         return booked;
     }

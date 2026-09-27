@@ -1,11 +1,9 @@
 package ui;
 import data.MovieRecords;
-import models.Movie;
 import services.BookingServices;
-
-import java.awt.print.Book;
 import java.util.Scanner;
 
+//---------------------------------------------------------------------------------------------------------
 
 public class CinemaApp {
 
@@ -15,16 +13,28 @@ public class CinemaApp {
     public CinemaApp(MovieRecords records, BookingServices bookingService) {
         this.records = records;
         this.bookingService = bookingService;
+
     }
-public static void main(String[] args){
 
-    MovieRecords records = new MovieRecords();
-    BookingServices bookingServices = new BookingServices();
+//---------------------------------------------------------------------------------------------------------
 
-    CinemaApp app = new CinemaApp(records, bookingServices);
-    app.start();
+    public static void main(String[] args){
+
+        MovieRecords records = new MovieRecords();
+        records.loadData();
+        records.removeInvalidShowings();
+
+        BookingServices bookingServices = new BookingServices(records);
+        CinemaApp app = new CinemaApp(records, bookingServices);
+
+        app.start();
 }
+
+//---------------------------------------------------------------------------------------------------------
+
     public void start() {
+        records.removeInvalidShowings();
+
         Scanner sc = new Scanner(System.in);
 
         while (true) {
@@ -36,12 +46,11 @@ public static void main(String[] args){
             int choice = sc.nextInt();
 
             switch (choice) {
-                case 1 -> new POVcustomer(records, bookingService).start();
-                case 2 -> new POVadmin(records).start();
+                case 1 -> new Customer(records, bookingService).start();
+                case 2 -> new Admin(records, bookingService).start();
                 case 3 -> System.exit(0);
             }
         }
-
     }
 }
 
