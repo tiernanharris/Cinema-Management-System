@@ -5,7 +5,7 @@ This project was made by utilising Java classes, ArrayLists, basic validation, a
 
 -- Features --
 
-Browse Movies — displays a list of available movies currently showing at the cinema.
+Browse Movies - displays a list of available movies currently showing at the cinema.
 
 View Showtimes - allows users to select a movie and view its scheduled showtimes.
 
